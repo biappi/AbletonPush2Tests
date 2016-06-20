@@ -1,0 +1,305 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3F6A5DAE1D189C5500D52A5F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6A5DAD1D189C5500D52A5F /* main.swift */; };
+		3F6A5DD91D189F4900D52A5F /* libnanomsg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F6A5DD31D189CFD00D52A5F /* libnanomsg.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3F6A5DA81D189C5500D52A5F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		3F6A5DAA1D189C5500D52A5F /* nanotests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = nanotests; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F6A5DAD1D189C5500D52A5F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		3F6A5DC81D189CF000D52A5F /* bus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bus.h; sourceTree = "<group>"; };
+		3F6A5DC91D189CF000D52A5F /* inproc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = inproc.h; sourceTree = "<group>"; };
+		3F6A5DCA1D189CF000D52A5F /* ipc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ipc.h; sourceTree = "<group>"; };
+		3F6A5DCB1D189CF000D52A5F /* nn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nn.h; sourceTree = "<group>"; };
+		3F6A5DCC1D189CF000D52A5F /* pair.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pair.h; sourceTree = "<group>"; };
+		3F6A5DCD1D189CF000D52A5F /* pipeline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pipeline.h; sourceTree = "<group>"; };
+		3F6A5DCE1D189CF000D52A5F /* pubsub.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pubsub.h; sourceTree = "<group>"; };
+		3F6A5DCF1D189CF000D52A5F /* reqrep.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = reqrep.h; sourceTree = "<group>"; };
+		3F6A5DD01D189CF000D52A5F /* survey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = survey.h; sourceTree = "<group>"; };
+		3F6A5DD11D189CF000D52A5F /* tcp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tcp.h; sourceTree = "<group>"; };
+		3F6A5DD21D189CF000D52A5F /* ws.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ws.h; sourceTree = "<group>"; };
+		3F6A5DD31D189CFD00D52A5F /* libnanomsg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libnanomsg.a; path = lib/libnanomsg.a; sourceTree = "<group>"; };
+		3F6A5DD51D189DA300D52A5F /* nanotests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "nanotests-Bridging-Header.h"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3F6A5DA71D189C5500D52A5F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F6A5DD91D189F4900D52A5F /* libnanomsg.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3F6A5DA11D189C5500D52A5F = {
+			isa = PBXGroup;
+			children = (
+				3F6A5DB41D189C9000D52A5F /* nanomsg */,
+				3F6A5DAC1D189C5500D52A5F /* nanotests */,
+				3F6A5DAB1D189C5500D52A5F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3F6A5DAB1D189C5500D52A5F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3F6A5DAA1D189C5500D52A5F /* nanotests */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3F6A5DAC1D189C5500D52A5F /* nanotests */ = {
+			isa = PBXGroup;
+			children = (
+				3F6A5DAD1D189C5500D52A5F /* main.swift */,
+				3F6A5DD51D189DA300D52A5F /* nanotests-Bridging-Header.h */,
+			);
+			path = nanotests;
+			sourceTree = "<group>";
+		};
+		3F6A5DB41D189C9000D52A5F /* nanomsg */ = {
+			isa = PBXGroup;
+			children = (
+				3F6A5DC71D189CF000D52A5F /* include */,
+				3F6A5DD31D189CFD00D52A5F /* libnanomsg.a */,
+			);
+			name = nanomsg;
+			path = ../nanomsg/Prefix;
+			sourceTree = "<group>";
+		};
+		3F6A5DC71D189CF000D52A5F /* include */ = {
+			isa = PBXGroup;
+			children = (
+				3F6A5DC81D189CF000D52A5F /* bus.h */,
+				3F6A5DC91D189CF000D52A5F /* inproc.h */,
+				3F6A5DCA1D189CF000D52A5F /* ipc.h */,
+				3F6A5DCB1D189CF000D52A5F /* nn.h */,
+				3F6A5DCC1D189CF000D52A5F /* pair.h */,
+				3F6A5DCD1D189CF000D52A5F /* pipeline.h */,
+				3F6A5DCE1D189CF000D52A5F /* pubsub.h */,
+				3F6A5DCF1D189CF000D52A5F /* reqrep.h */,
+				3F6A5DD01D189CF000D52A5F /* survey.h */,
+				3F6A5DD11D189CF000D52A5F /* tcp.h */,
+				3F6A5DD21D189CF000D52A5F /* ws.h */,
+			);
+			name = include;
+			path = include/nanomsg;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3F6A5DA91D189C5500D52A5F /* nanotests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3F6A5DB11D189C5500D52A5F /* Build configuration list for PBXNativeTarget "nanotests" */;
+			buildPhases = (
+				3F6A5DA61D189C5500D52A5F /* Sources */,
+				3F6A5DA71D189C5500D52A5F /* Frameworks */,
+				3F6A5DA81D189C5500D52A5F /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = nanotests;
+			productName = nanotests;
+			productReference = 3F6A5DAA1D189C5500D52A5F /* nanotests */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3F6A5DA21D189C5500D52A5F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Antonio Malara";
+				TargetAttributes = {
+					3F6A5DA91D189C5500D52A5F = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 3F6A5DA51D189C5500D52A5F /* Build configuration list for PBXProject "nanotests" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 3F6A5DA11D189C5500D52A5F;
+			productRefGroup = 3F6A5DAB1D189C5500D52A5F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3F6A5DA91D189C5500D52A5F /* nanotests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3F6A5DA61D189C5500D52A5F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F6A5DAE1D189C5500D52A5F /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		3F6A5DAF1D189C5500D52A5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		3F6A5DB01D189C5500D52A5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		3F6A5DB21D189C5500D52A5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../nanomsg/Prefix/lib";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "nanotests/nanotests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		3F6A5DB31D189C5500D52A5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../nanomsg/Prefix/lib";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "nanotests/nanotests-Bridging-Header.h";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3F6A5DA51D189C5500D52A5F /* Build configuration list for PBXProject "nanotests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3F6A5DAF1D189C5500D52A5F /* Debug */,
+				3F6A5DB01D189C5500D52A5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3F6A5DB11D189C5500D52A5F /* Build configuration list for PBXNativeTarget "nanotests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3F6A5DB21D189C5500D52A5F /* Debug */,
+				3F6A5DB31D189C5500D52A5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3F6A5DA21D189C5500D52A5F /* Project object */;
+}
