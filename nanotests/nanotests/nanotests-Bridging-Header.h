@@ -9,3 +9,5 @@
 #include "pair.h"
 #include "survey.h"
 #include "reqrep.h"
+
+#include "Midi.h"
