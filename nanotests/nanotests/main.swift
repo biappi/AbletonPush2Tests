@@ -9,22 +9,37 @@
 import Foundation
 import CoreMIDI
 
-func send(sock : Int32, response : [UInt8]) {
-    let sendresp = nn_send(sock, response, response.count, 0)
-    print("response: \(response) ret: \(sendresp)")
-}
-
-func receive(sock : Int32) -> [UInt8]? {
-    var charPtr : UnsafePointer<UInt8> = nil
-    let len = nn_recv(sock, &charPtr, -1, 0)
-    if len < 0 {
-        return nil
+class NanoMsgSocket {
+    let sock : Int32
+    
+    init(connectedTo: String) {
+        sock = nn_socket(AF_SP, (NN_PROTO_PAIR * 16 + 0))
+        let res = "ipc:///tmp/\(connectedTo)".withCString { return nn_connect(sock, $0) }
+        print("connect res: \(res)")
     }
-    else {
-        let charBuf = UnsafeBufferPointer<UInt8>(start: charPtr, count: Int(len))
-        let array = Array<UInt8>(charBuf)
-        print ("received: \(array)")
-        return array
+    
+    init(boundTo: String) {
+        sock = nn_socket(AF_SP, (NN_PROTO_PAIR * 16 + 0))
+        let res = "ipc:///tmp/\(boundTo)".withCString { return nn_bind(sock, $0) }
+        print("connect res: \(res)")
+    }
+    
+    func send(response : [UInt8]) {
+        let sendresp = nn_send(sock, response, response.count, 0)
+        print("response: \(response) ret: \(sendresp)")
+    }
+    
+    func receive() -> [UInt8]? {
+        var charPtr : UnsafePointer<UInt8> = nil
+        let len = nn_recv(sock, &charPtr, -1, 0)
+        if len < 0 {
+            return nil
+        }
+        else {
+            let charBuf = UnsafeBufferPointer<UInt8>(start: charPtr, count: Int(len))
+            let array = Array<UInt8>(charBuf)
+            return array
+        }
     }
 }
 
@@ -67,70 +82,58 @@ class MidiThread : NSThread, MidiDelegate {
         
         if sysex == identityRequest {
             let response : [UInt8] = [
-                0xF0,
-                0x7E,
-                0x01,
-                0x06,
-                0x02,
-                0x00,
-                0x21,
-                0x1D,
-                0x67,
-                0x32,
-                0x02,
-                0x00,
-                0x01,
-                0x00,
-                0x2F,
-                0x00,
-                0x3B,
-                0x5F,
-                0x41,
-                0x08,
-                0x00,
-                0x01,
-                0xF7,
+                0xF0, 0x7E, 0x01, 0x06, 0x02, 0x00, 0x21, 0x1D,
+                0x67, 0x32, 0x02, 0x00, 0x01, 0x00, 0x2F, 0x00,
+                0x3B, 0x5F, 0x41, 0x08, 0x00, 0x01, 0xF7,
             ]
             
             m.sendMidiBytes(response, count: response.count)
-            //print("midi send \(response)")
         }
     }
+}
+
+var allJsons = NSMutableArray()
+
+func PushGotJson(bytes: ArraySlice<UInt8>) {
+    let maybePayload = String(bytes: bytes, encoding: NSUTF8StringEncoding)
+    
+    if let payload = maybePayload {
+        print (payload)
+        allJsons.addObject(payload)
+        allJsons.writeToFile("/tmp/all-jsons", atomically: true)
+    }
+}
+
+func CommandToCallback(cmd: ArraySlice<UInt8>) -> (ArraySlice<UInt8> -> ())? {
+    if cmd == [3, 0, 0, 0] { return PushGotJson }
+    return nil
 }
 
 if Process.arguments.count > 4 {
     print("NANOMSG SIDE")
     
     let ipcPort = Process.arguments[4]
-    let sock = nn_socket(AF_SP, (NN_PROTO_PAIR * 16 + 0))
     
-    let res = "ipc:///tmp/\(ipcPort)".withCString { (string) in
-        return nn_connect(sock, string)
-    }
-    
-    print("bind res: \(res)")
-    
-    send(sock, response: [0, 0, 0, 0])
+    let sock = NanoMsgSocket(connectedTo: ipcPort)
+    sock.send([0, 0, 0, 0])
     
     while true {
-        let maybeThing = receive(sock)
+        let maybeThing = sock.receive()
         if let thing = maybeThing {
             if thing.count > 4 {
-                if thing[0..<4] == [3, 0, 0, 0] {
-                    let maybePayload = String(bytes: thing[4..<thing.count], encoding: NSUTF8StringEncoding)
-                    
-                    if let payload = maybePayload {
-                        print (payload)
-//                        let j = try! NSJSONSerialization.JSONObjectWithData(payload.dataUsingEncoding(NSUTF8StringEncoding)!, options: NSJSONReadingOptions())
-//                        print("json payload: \(j)")
-                    }
+                let command  = thing[0..<4]
+                let rest     = thing[4..<thing.count]
+                
+                if let callback = CommandToCallback(command) {
+                    callback(rest)
+                }
+                else {
+                    print("unknown command: \(thing)")
                 }
             }
-//            // from push -> live
-            
-//            if thing == [0, 0, 0, 0] {
-//                send(sock, response: [1, 0, 0, 0])
-//            }
+            else {
+                print("less than 4: \(thing)")
+            }
         }
     }
 }
