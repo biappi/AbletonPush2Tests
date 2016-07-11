@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F54C4351D1F6D440003CE49 /* PushJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F54C4341D1F6D440003CE49 /* PushJSON.swift */; };
 		3F6A5DAE1D189C5500D52A5F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6A5DAD1D189C5500D52A5F /* main.swift */; };
 		3F6A5DD91D189F4900D52A5F /* libnanomsg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F6A5DD31D189CFD00D52A5F /* libnanomsg.a */; };
 		3F6A5DDB1D18B29600D52A5F /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F6A5DDA1D18B29600D52A5F /* CoreMIDI.framework */; };
 		3F6A5DE01D18BF6500D52A5F /* Midi.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F6A5DDF1D18BF6500D52A5F /* Midi.m */; };
+		3FFD51C41D1CCC210005EBE9 /* Push2Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFD51C31D1CCC210005EBE9 /* Push2Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,6 +28,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3F54C4341D1F6D440003CE49 /* PushJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushJSON.swift; sourceTree = "<group>"; };
 		3F6A5DAA1D189C5500D52A5F /* nanotests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = nanotests; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F6A5DAD1D189C5500D52A5F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		3F6A5DC81D189CF000D52A5F /* bus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bus.h; sourceTree = "<group>"; };
@@ -44,6 +47,7 @@
 		3F6A5DDA1D18B29600D52A5F /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		3F6A5DDE1D18BF6500D52A5F /* Midi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Midi.h; sourceTree = "<group>"; };
 		3F6A5DDF1D18BF6500D52A5F /* Midi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Midi.m; sourceTree = "<group>"; };
+		3FFD51C31D1CCC210005EBE9 /* Push2Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Push2Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +85,8 @@
 			isa = PBXGroup;
 			children = (
 				3F6A5DAD1D189C5500D52A5F /* main.swift */,
+				3F54C4341D1F6D440003CE49 /* PushJSON.swift */,
+				3FFD51C31D1CCC210005EBE9 /* Push2Model.swift */,
 				3F6A5DD51D189DA300D52A5F /* nanotests-Bridging-Header.h */,
 				3F6A5DDE1D18BF6500D52A5F /* Midi.h */,
 				3F6A5DDF1D18BF6500D52A5F /* Midi.m */,
@@ -174,8 +180,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FFD51C41D1CCC210005EBE9 /* Push2Model.swift in Sources */,
 				3F6A5DE01D18BF6500D52A5F /* Midi.m in Sources */,
 				3F6A5DAE1D189C5500D52A5F /* main.swift in Sources */,
+				3F54C4351D1F6D440003CE49 /* PushJSON.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +316,7 @@
 				3F6A5DB31D189C5500D52A5F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
