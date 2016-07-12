@@ -172,6 +172,9 @@ func tryToBeLive() {
                 sock.send([1, 0, 0, 0])
                 sock.send([3, 0, 0, 0] + cmd.toJSON()!.toBytes())
             }
+            else if command == [3, 0, 0, 0] {
+                PushGotJson(rest)
+            }
             else {
                 print("unknown command: \(thing) \(rest)")
             }
