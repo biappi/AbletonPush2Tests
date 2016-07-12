@@ -27,7 +27,9 @@ class NanoMsgSocket {
     
     func send(response : [UInt8]) {
         let sendresp = nn_send(sock, response, response.count, 0)
-        print("response: \(response) ret: \(sendresp)")
+        if sendresp < 1 {
+            print("fail to send response: \(response) ret: \(sendresp)")
+        }
     }
     
     func receive() -> [UInt8]? {
