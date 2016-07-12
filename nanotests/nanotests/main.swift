@@ -9,6 +9,9 @@
 import Foundation
 import CoreMIDI
 
+// MARK: Simple NanoMsg socket wrapper
+// MARK: -
+
 class NanoMsgSocket {
     let sock : Int32
     
@@ -45,6 +48,10 @@ class NanoMsgSocket {
         }
     }
 }
+
+// MARK: -
+// MARK: Midi thread to advertise as push
+// MARK: -
 
 class MidiThread : NSThread, MidiDelegate {
     let m = Midi()
@@ -95,22 +102,81 @@ class MidiThread : NSThread, MidiDelegate {
     }
 }
 
-var allJsons = NSMutableArray()
+// MARK: -
+// MARK: Common protocol between Live and Push
+// MARK: -
 
-func PushGotJson(bytes: ArraySlice<UInt8>) {
+extension String {
+    func toBytes() -> [UInt8] {
+        let data = self.dataUsingEncoding(NSUTF8StringEncoding)!
+        return Array(UnsafeBufferPointer(start: UnsafePointer<UInt8>(data.bytes), count: data.length))
+    }
+}
+
+typealias PushProtocolCommand = ArraySlice<UInt8>
+typealias PushProtocolCommandCallback = (PushProtocolCommand, NanoMsgSocket) -> ()
+typealias PushProtocolCommandDispatch = PushProtocolCommand -> PushProtocolCommandCallback?
+
+func pushProtocolLoop(sock: NanoMsgSocket, commands: PushProtocolCommandDispatch) {
+    while true {
+        let data = sock.receive()
+        if let data = data {
+            let command  = data[0..<4]
+            let rest     = data[4..<data.count]
+            
+            if let callback = commands(command) {
+                callback(rest, sock)
+            }
+            else {
+                print("unknown command: \(data) \(rest)")
+            }
+        }
+        else {
+            print("less than 4 bytes in: \(data)")
+        }
+    }
+}
+
+// MARK: -
+// MARK: Faking Push
+// MARK: -
+
+func PushGotJson(bytes: ArraySlice<UInt8>, sock: NanoMsgSocket) {
     let maybePayload = String(bytes: bytes, encoding: NSUTF8StringEncoding)
     
     if let payload = maybePayload {
         print (payload)
-        allJsons.addObject(payload)
-        allJsons.writeToFile("/tmp/all-jsons", atomically: true)
     }
 }
 
-func CommandToCallback(cmd: ArraySlice<UInt8>) -> (ArraySlice<UInt8> -> ())? {
+func CommandToCallbackFakingPush(cmd: PushProtocolCommand) -> PushProtocolCommandCallback? {
     if cmd == [3, 0, 0, 0] { return PushGotJson }
     return nil
 }
+
+// MARK: -
+// MARK: Faking Live
+// MARK: -
+
+func PushSentProbe(bytes: ArraySlice<UInt8>, sock: NanoMsgSocket) {
+    var model = RootModel()
+    model.notificationView = Notification(visible: true, message: "TEST")
+    
+    let cmd = PushCommand(command: "full-model-update", payload: model)
+
+    sock.send([1, 0, 0, 0])
+    sock.send([3, 0, 0, 0] + cmd.toJSON()!.toBytes())
+}
+
+func CommandToCallbackFakingLive(cmd: ArraySlice<UInt8>) -> ((ArraySlice<UInt8>, NanoMsgSocket) -> ())? {
+    if cmd == [0, 0, 0, 0] { return PushSentProbe }
+    if cmd == [3, 0, 0, 0] { return PushGotJson   }
+    return nil
+}
+
+// MARK: -
+// MARK: - main() functions
+// MARK: -
 
 func tryToBePush() {
     if Process.arguments.count > 4 {
@@ -120,21 +186,7 @@ func tryToBePush() {
         
         let sock = NanoMsgSocket(connectedTo: ipcPort)
         sock.send([0, 0, 0, 0])
-        
-        while true {
-            let maybeThing = sock.receive()
-            if let thing = maybeThing {
-                let command  = thing[0..<4]
-                let rest     = thing[4..<thing.count]
-                
-                if let callback = CommandToCallback(command) {
-                    callback(rest)
-                }
-                else {
-                    print("unknown command: \(thing) \(rest)")
-                }
-            }
-        }
+        pushProtocolLoop(sock, commands: CommandToCallbackFakingPush)
     }
     else {
         print("MIDI SIDE")
@@ -145,43 +197,15 @@ func tryToBePush() {
     }
 }
 
-extension String {
-    func toBytes() -> [UInt8] {
-        let data = self.dataUsingEncoding(NSUTF8StringEncoding)!
-        return Array(UnsafeBufferPointer(start: UnsafePointer<UInt8>(data.bytes), count: data.length))
-    }
-}
-
 func tryToBeLive() {
     system("/Applications/Ableton\\ Live\\ 9\\ Suite.app/Contents/Push2/Push2DisplayProcess.app/Contents/MacOS/Push2DisplayProcess --push2-log-to-console --push2-log-level=debug --push2-mode=emulator &")
     
     let sock = NanoMsgSocket(boundTo: "push2ipc")
 
-    var model = RootModel()
-    model.notificationView = Notification(visible: true, message: "TEST")
-    
-    let cmd = PushCommand(command: "full-model-update", payload: model)
     
     sleep(3)
     
-    while true {
-        let maybeThing = sock.receive()
-        if let thing = maybeThing {
-            let command  = thing[0..<4]
-            let rest     = thing[4..<thing.count]
-            
-            if command == [0, 0, 0, 0] {
-                sock.send([1, 0, 0, 0])
-                sock.send([3, 0, 0, 0] + cmd.toJSON()!.toBytes())
-            }
-            else if command == [3, 0, 0, 0] {
-                PushGotJson(rest)
-            }
-            else {
-                print("unknown command: \(thing) \(rest)")
-            }
-        }
-    }
+    pushProtocolLoop(sock, commands: CommandToCallbackFakingLive)
 }
 
 
